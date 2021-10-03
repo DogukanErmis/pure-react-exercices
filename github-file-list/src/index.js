@@ -20,7 +20,7 @@ FileList.propTypes = {
 const FileListItem = ({ file }) => (
   <tr className="file-list-item">
     <FileName name={file.name} />
-    <FileIcon icon={file.type} />
+    <FileIcon type={file.type} />
   </tr>
 );
 
@@ -29,7 +29,20 @@ FileListItem.propTypes = {
 };
 
 const FileName = ({ name }) => <td className="file-name">{name}</td>;
-const FileIcon = ({ icon }) => <td className="file-name">{icon}</td>;
+
+function FileIcon({ type }) {
+  let icon = 'fa-file-text-o';
+
+  if (type === 'folder') {
+    icon = 'fa-folder';
+  }
+
+  return (
+    <td className="file-icon">
+      <i className={`fa ${icon}`} />
+    </td>
+  );
+}
 
 // data
 const testFiles = [
