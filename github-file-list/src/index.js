@@ -44,6 +44,10 @@ function FileIcon({ type }) {
   );
 }
 
+FileIcon.propTypes = {
+  type: PropTypes.string,
+};
+
 // data
 const testFiles = [
   {
