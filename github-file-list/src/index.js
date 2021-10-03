@@ -19,13 +19,17 @@ FileList.propTypes = {
 
 const FileListItem = ({ file }) => (
   <tr className="file-list-item">
-    <td className="file-name">{file.name}</td>
+    <FileName name={file.name} />
+    <FileIcon icon={file.type} />
   </tr>
 );
 
 FileListItem.propTypes = {
   file: PropTypes.object.isRequired,
 };
+
+const FileName = ({ name }) => <td className="file-name">{name}</td>;
+const FileIcon = ({ icon }) => <td className="file-name">{icon}</td>;
 
 // data
 const testFiles = [
