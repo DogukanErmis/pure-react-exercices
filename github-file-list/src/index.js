@@ -34,6 +34,10 @@ const FileName = ({ file }) => (
   </>
 );
 
+FileName.propTypes = {
+  file: PropTypes.object.isRequired,
+};
+
 function FileIcon({ file }) {
   let icon = 'fa-file-text-o';
 
@@ -47,10 +51,6 @@ function FileIcon({ file }) {
     </td>
   );
 }
-
-FileIcon.propTypes = {
-  file: PropTypes.object.isRequired,
-};
 
 // data
 const testFiles = [
