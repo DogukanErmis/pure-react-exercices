@@ -4,11 +4,11 @@ import './index.css';
 
 function FileList({ files }) {
   return (
-    <table>
+    <table className="file-list">
       <tbody>
         {files.map((file) => (
-          <tr key={file.id}>
-            <td>{file.name}</td>
+          <tr className="file-list-item" key={file.id}>
+            <td className="file-name">{file.name}</td>
           </tr>
         ))}
       </tbody>
