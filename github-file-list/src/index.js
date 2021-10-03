@@ -20,6 +20,7 @@ FileList.propTypes = {
 const FileListItem = ({ file }) => (
   <tr className="file-list-item">
     <FileName file={file} />
+    <CommitMessage commit={file.latestCommit} />
   </tr>
 );
 
@@ -51,6 +52,12 @@ function FileIcon({ file }) {
     </td>
   );
 }
+
+const CommitMessage = ({ commit }) => (
+  <td className="commit-message">{commit.message}</td>
+);
+
+CommitMessage.propTypes = { commit: PropTypes.object.isRequired };
 
 // data
 const testFiles = [
