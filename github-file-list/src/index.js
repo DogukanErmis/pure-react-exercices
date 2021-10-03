@@ -14,56 +14,54 @@ const FileList = ({ files }) => (
   </table>
 );
 
-FileList.propTypes = {
-  files: PropTypes.array,
-};
-
 const FileListItem = ({ file }) => (
   <tr className="file-list-item">
-    <FileName file={file} />
-    <CommitMessage commit={file.latestCommit} />
+    <td className="file-icon">
+      <FileIcon type={file.type} />
+    </td>
+    <td className="file-name">
+      <FileName name={file.name} />
+    </td>
+    <td className="commit-message">
+      <CommitMessage commit={file.latestCommit} />
+    </td>
     <td className="age">
       <Time time={file.updated_at} />
     </td>
   </tr>
 );
 
-FileListItem.propTypes = {
-  file: PropTypes.object.isRequired,
-};
-
-const FileName = ({ file }) => (
-  <>
-    <FileIcon file={file} />
-    <td className="file-name">{file.name}</td>
-  </>
-);
-
-FileName.propTypes = {
-  file: PropTypes.object.isRequired,
-};
-
-function FileIcon({ file }) {
+const FileIcon = ({ type }) => {
   let icon = 'fa-file-text-o';
 
-  if (file.type === 'folder') {
+  if (type === 'folder') {
     icon = 'fa-folder';
   }
 
-  return (
-    <td className="file-icon">
-      <i className={`fa ${icon}`} />
-    </td>
-  );
-}
+  return <i className={`fa ${icon}`} />;
+};
 
-const CommitMessage = ({ commit }) => (
-  <td className="commit-message">{commit.message}</td>
-);
+const FileName = ({ name }) => <span>{name}</span>;
+const CommitMessage = ({ commit }) => <span>{commit.message}</span>;
 
-CommitMessage.propTypes = { commit: PropTypes.object.isRequired };
+// Debugging
+FileList.propTypes = {
+  files: PropTypes.array.isRequired,
+};
+FileListItem.propTypes = {
+  file: PropTypes.object.isRequired,
+};
+FileName.propTypes = {
+  name: PropTypes.string.isRequired,
+};
+FileIcon.propTypes = {
+  type: PropTypes.string.isRequired,
+};
+CommitMessage.propTypes = {
+  commit: PropTypes.object.isRequired,
+};
 
-// data
+// Data
 const testFiles = [
   {
     id: 1,
