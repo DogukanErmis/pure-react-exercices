@@ -23,16 +23,20 @@ class CountingParent extends React.Component {
   render() {
     return (
       <div>
-        <Child onAction={this.handleAction} />
+        <Child onAction={this.handleAction} onReset={this.handleReset} />
         <p>Clicked {this.state.actionCount} times</p>
-        <button onClick={this.handleReset}>Reset</button>
       </div>
     );
   }
 }
 
-function Child({ onAction }) {
-  return <button onClick={onAction}>Click Me!</button>;
+function Child({ onAction, onReset }) {
+  return (
+    <>
+      <button onClick={onAction}>Click Me!</button>
+      <button onClick={onReset}>Reset</button>
+    </>
+  );
 }
 
 ReactDOM.render(
