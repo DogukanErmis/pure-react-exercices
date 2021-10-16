@@ -1,17 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+
+class Reddit extends React.Component {
+  state = {
+    posts: [],
+  };
+
+  componentDidMount() {
+    axios
+      .get(`https://www.reddit.com/r/${this.props.subreddit}.json`)
+      .then((res) => {
+        const posts = res.data.data.children.map((obj) => obj.data);
+        this.setState({ posts });
+      });
+  }
+
+  render() {
+    const { posts } = this.state;
+
+    return (
+      <div>
+        <h1>{`/r/${this.props.subreddit}`}</h1>
+        <ul>
+          {posts.map((post) => (
+            <li key={post.id}>{post.title}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <Reddit subreddit="reactjs" />,
+  document.querySelector('#root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
