@@ -5,6 +5,7 @@ import axios from 'axios';
 class Reddit extends React.Component {
   state = {
     posts: [],
+    error: null,
   };
 
   componentDidMount() {
@@ -13,20 +14,27 @@ class Reddit extends React.Component {
       .then((res) => {
         const posts = res.data.data.children.map((obj) => obj.data);
         this.setState({ posts });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
       });
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts, error } = this.state;
 
     return (
       <div>
         <h1>{`/r/${this.props.subreddit}`}</h1>
-        <ul>
-          {posts.map((post) => (
-            <li key={post.id}>{post.title}</li>
-          ))}
-        </ul>
+        {error ? (
+          error
+        ) : (
+          <ul>
+            {posts.length === 0
+              ? 'Loading...'
+              : posts.map((post) => <li key={post.id}>{post.title}</li>)}
+          </ul>
+        )}
       </div>
     );
   }
