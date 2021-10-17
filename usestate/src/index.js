@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-const RandomList = () => {
-  const [numbers, setNumbers] = useState([]);
+const AudioControls = () => {
+  const [controls, setControls] = useState({
+    volume: 0,
+    bass: 0,
+    mid: 0,
+    treble: 0,
+  });
 
-  const addNumber = () => {
-    setNumbers((numbers) => [
-      ...numbers,
-      { id: numbers.length, value: Math.floor(Math.random() * 100) },
-    ]);
+  const increaseVolume = () => {
+    setControls((controls) => ({ ...controls, volume: controls.volume + 1 }));
+  };
+  const decreaseVolume = () => {
+    setControls((controls) => ({ ...controls, volume: controls.volume - 1 }));
   };
 
   return (
     <>
-      <button onClick={addNumber}>Add Number</button>
-      <ul>
-        {numbers.map((number) => (
-          <li key={number.id}>{number.value}</li>
-        ))}
-      </ul>
+      <button onClick={increaseVolume}>+</button>
+      <span>{controls.volume}</span>
+      <button onClick={decreaseVolume}>-</button>
     </>
   );
 };
 
-ReactDOM.render(<RandomList />, document.getElementById('root'));
+ReactDOM.render(<AudioControls />, document.getElementById('root'));
