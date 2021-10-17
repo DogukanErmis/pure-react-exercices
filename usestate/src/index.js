@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 
 const MultiCounter = () => {
   const [counts, setCounts] = useState({ countA: 0, countB: 0 });
+
   const incA = () =>
     setCounts((counts) => ({ ...counts, countA: counts.countA + 1 }));
+
   const incB = () =>
     setCounts((counts) => ({ ...counts, countB: counts.countB + 1 }));
+
   const badIncA = () => setCounts({ countA: counts.countA + 1 });
 
   return (
