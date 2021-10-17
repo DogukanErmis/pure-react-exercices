@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-function Room() {
-  const [isLit, setLit] = useState(false);
+const RandomList = () => {
+  const [numbers, setNumbers] = useState([]);
 
-  const toggleLight = () => {
-    setLit((isLit) => !isLit);
+  const addNumber = () => {
+    setNumbers((numbers) => [
+      ...numbers,
+      { id: numbers.length, value: Math.floor(Math.random() * 100) },
+    ]);
   };
 
   return (
-    <button onClick={toggleLight}>The room is {isLit ? 'lit' : 'dark'}</button>
+    <>
+      <button onClick={addNumber}>Add Number</button>
+      <ul>
+        {numbers.map((number) => (
+          <li key={number.id}>{number.value}</li>
+        ))}
+      </ul>
+    </>
   );
-}
+};
 
-ReactDOM.render(<Room />, document.getElementById('root'));
+ReactDOM.render(<RandomList />, document.getElementById('root'));
