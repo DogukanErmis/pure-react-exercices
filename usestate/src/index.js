@@ -1,26 +1,16 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-const MultiCounter = () => {
-  const [counts, setCounts] = useState({ countA: 0, countB: 0 });
+function Room() {
+  const [isLit, setLit] = useState(false);
 
-  const incA = () =>
-    setCounts((counts) => ({ ...counts, countA: counts.countA + 1 }));
-
-  const incB = () =>
-    setCounts((counts) => ({ ...counts, countB: counts.countB + 1 }));
-
-  const badIncA = () => setCounts({ countA: counts.countA + 1 });
+  const toggleLight = () => {
+    setLit((isLit) => !isLit);
+  };
 
   return (
-    <>
-      <div>A: {counts.countA}</div>
-      <div>B: {counts.countB}</div>
-      <button onClick={incA}>Increment A</button>
-      <button onClick={incB}>Increment B</button>
-      <button onClick={badIncA}>Increment A Badly</button>
-    </>
+    <button onClick={toggleLight}>The room is {isLit ? 'lit' : 'dark'}</button>
   );
-};
+}
 
-ReactDOM.render(<MultiCounter />, document.querySelector('#root'));
+ReactDOM.render(<Room />, document.getElementById('root'));
