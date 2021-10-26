@@ -7,6 +7,8 @@ const reducer = (state, action) => {
       return [...state, { id: state.length, name: action.name }];
     case 'remove': // keep every item except the one we want to remove
       return state.filter((_, index) => index !== action.index);
+    case 'clear':
+      return [];
     default:
       return state;
   }
@@ -41,6 +43,7 @@ function ShoppingList() {
           </li>
         ))}
       </ul>
+      <button onClick={() => dispatch({ type: 'clear' })}>Clear</button>
     </>
   );
 }
