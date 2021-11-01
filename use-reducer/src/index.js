@@ -1,57 +1,24 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Room } from './Room';
 
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case 'add':
-//       return [...state, { id: state.length, name: action.name }];
-//     case 'remove': // keep every item except the one we want to remove
-//       return state.filter((_, index) => index !== action.index);
-//     case 'clear':
-//       return [];
-//     default:
-//       return state;
-//   }
-// };
+function Reddit() {
+  // Initialize state to hold the posts
+  const [posts, setPosts] = useState([]);
 
-// function ShoppingList() {
-//   const inputRef = useRef();
-//   const [items, dispatch] = useReducer(reducer, []);
+  useEffect(() => {
+    // Fetch the data when the component mounts
+    fetch('https://www.reddit.com/r/reactjs.json')
+      .then((res) => res.json())
+      .then((json) => setPosts(json.data.children.map((c) => c.data)));
+  });
+  // <-- we didn't pass the 2nd arg. what will happen?
 
-//   function handleSubmit(e) {
-//     e.preventDefault();
-
-//     if (inputRef.current.value.trim() === '') return;
-
-//     dispatch({ type: 'add', name: inputRef.current.value });
-
-//     inputRef.current.value = '';
-//   }
-
-//   return (
-//     <>
-//       <form onSubmit={handleSubmit}>
-//         <input ref={inputRef} />
-//       </form>
-//       <ul>
-//         {items.map((item, index) => (
-//           <li key={item.id}>
-//             {item.name}
-//             <button onClick={() => dispatch({ type: 'remove', index })}>
-//               X
-//             </button>
-//           </li>
-//         ))}
-//       </ul>
-//       <button onClick={() => dispatch({ type: 'clear' })}>Clear</button>
-//     </>
-//   );
-// }
-
-ReactDOM.render(
-  <React.StrictMode>
-    <Room />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
+}
+ReactDOM.render(<Reddit />, document.querySelector('#root'));
