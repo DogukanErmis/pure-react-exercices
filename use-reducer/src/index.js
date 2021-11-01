@@ -10,7 +10,7 @@ function Reddit() {
     fetch('https://www.reddit.com/r/reactjs.json')
       .then((res) => res.json())
       .then((json) => setPosts(json.data.children.map((c) => c.data)));
-  });
+  }, [setPosts]);
   // <-- we didn't pass the 2nd arg. what will happen?
 
   return (
