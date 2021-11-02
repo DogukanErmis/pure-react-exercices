@@ -7,6 +7,12 @@ const Title = () => {
   useEffect(() => {
     console.log('test');
     document.title = value;
+
+    document.addEventListener('click', function () {
+      console.log(value);
+    });
+
+    return () => document.removeEventListener('click', () => {});
   }, [value]);
 
   return <input value={value} onChange={(e) => setValue(e.target.value)} />;
