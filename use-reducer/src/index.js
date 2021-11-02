@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-function Reddit() {
+function Reddit({ subreddit }) {
   // Initialize state to hold the posts
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     // Fetch the data when the component mounts
-    fetch('https://www.reddit.com/r/reactjs.json')
+    console.log('fetch data');
+    fetch(`https://www.reddit.com/r/${subreddit}.json`)
       .then((res) => res.json())
       .then((json) => setPosts(json.data.children.map((c) => c.data)));
-  }, [setPosts]);
-  // <-- we didn't pass the 2nd arg. what will happen?
+  }, [subreddit, setPosts]);
 
   return (
     <ul>
@@ -21,4 +21,7 @@ function Reddit() {
     </ul>
   );
 }
-ReactDOM.render(<Reddit />, document.querySelector('#root'));
+ReactDOM.render(
+  <Reddit subreddit="reactjs" />,
+  document.querySelector('#root')
+);
