@@ -10,7 +10,8 @@ function Reddit({ subreddit }) {
     console.log('fetch data');
     fetch(`https://www.reddit.com/r/${subreddit}.json`)
       .then((res) => res.json())
-      .then((json) => setPosts(json.data.children.map((c) => c.data)));
+      .then((json) => setPosts(json.data.children.map((c) => c.data)))
+      .catch((e) => alert('Incorrect subreddit.' + e));
   }, [subreddit, setPosts]);
 
   return (
