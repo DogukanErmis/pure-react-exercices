@@ -1,27 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import * as ReactDOM from "react-dom";
+import React, { useEffect, useState } from 'react';
+import * as ReactDOM from 'react-dom';
 
-const LogEffect = () => {
-  const inputRef = useRef(); // Store the input's value in state
-  const [value, setValue] = useState("");
+const Title = () => {
+  const [value, setValue] = useState('');
 
   useEffect(() => {
-    console.log("mounted");
-    return () => console.log("unmounting...");
-  }, []);
+    console.log('test');
+    document.title = value;
+  }, [value]);
 
-  return (
-    <input
-      ref={inputRef}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
+  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
 };
 
 ReactDOM.render(
   <React.StrictMode>
-    <LogEffect />
+    <Title />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
