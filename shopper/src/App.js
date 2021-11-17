@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Nav from './Nav';
 import './App.css';
-import { act } from 'react-dom/test-utils';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('items');
