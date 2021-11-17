@@ -1,6 +1,6 @@
 .App {
   max-width: 800px;
-  margin: 0auto;
+  margin: 0 auto;
 }
 .App-nav {
   margin: 20px;
@@ -25,5 +25,11 @@
   border-bottom: 4px solid transparent;
 }
 .App-content {
-  margin: 020px;
+  margin: 0 20px;
+}
+.App-nav-item button:hover {
+  color: #999;
+}
+.App-nav-item.selected {
+  border-bottom-color: #ffaa3f;
 }
