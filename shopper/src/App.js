@@ -4,6 +4,16 @@ import './App.css';
 import ItemPage from './ItemPage';
 import { items } from './static-data';
 
+const summarizeCart = (cart) => {
+  const groupedItems = cart.reduce((summary, item) => {
+    summary[item.id] = summary[item.id] || { ...item, count: 0 };
+    summary[item.id].count++;
+    return summary;
+  }, {});
+
+  return Object.values(groupedItems);
+};
+
 const App = () => {
   const [activeTab, setActiveTab] = useState('items');
   const [cart, setCart] = useState([]);
@@ -11,6 +21,8 @@ const App = () => {
   const addToCart = (item) => {
     setCart((prevCart) => [...prevCart, item]);
   };
+
+  console.log(cart);
 
   return (
     <div className="App">
