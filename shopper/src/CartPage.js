@@ -4,12 +4,12 @@ import Item from './Item';
 import './CartPage.css';
 
 const getTotal = (items) => {
-  return items.reduce((a,item) => a + (item.count * item.price), 0)
+  return items.reduce((a, item) => a + (item.count * item.price), 0)
 }
 
 function CartPage({items, onAddOne, onRemoveOne}) {
   return (
-    <ul className="CartPage-items">
+    items.length > 0 ? <ul className="CartPage-items">
       {items.map((item) => (
         <li key={item.id} className="CartPage-item">
           <Item item={item}>
@@ -22,7 +22,7 @@ function CartPage({items, onAddOne, onRemoveOne}) {
         </li>
       ))}
       <span>Total: {getTotal(items)}</span>
-    </ul>
+    </ul> : 'Your cart is empty'
   );
 }
 
