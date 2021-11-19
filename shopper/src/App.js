@@ -7,7 +7,7 @@ import {items} from './static-data';
 
 const summarizeCart = (cart) => {
   const groupedItems = cart.reduce((summary, item) => {
-    summary[item.id] = summary[item.id] || { ...item, count: 0 };
+    summary[item.id] = summary[item.id] || {...item, count: 0};
     summary[item.id].count++;
     return summary;
   }, {});
@@ -23,13 +23,25 @@ const App = () => {
     setCart((prevCart) => [...prevCart, item]);
   };
 
+  const removeItem = item => {
+    let index = cart.findIndex(i => i.id === item.id);
+    if (index >= 0) {
+      setCart(cart => {
+        const copy = [...cart];
+        copy.splice(index, 1);
+        return copy;
+      });
+    }
+  };
+
   return (
     <div className="App">
-      <Nav activeTab={activeTab} onTabChange={setActiveTab} />
+      <Nav activeTab={activeTab} onTabChange={setActiveTab}/>
       <main className="App-content">
         <Content
           tab={activeTab}
           onAddToCart={addToCart}
+          onRemoveItem={removeItem}
           cart={summarizeCart(cart)}
         />
       </main>
@@ -37,13 +49,13 @@ const App = () => {
   );
 };
 
-const Content = ({ tab, onAddToCart, cart }) => {
+const Content = ({tab, onAddToCart, onRemoveItem, cart}) => {
   switch (tab) {
     default:
     case 'items':
-      return <ItemPage items={items} onAddToCart={onAddToCart} />;
+      return <ItemPage items={items} onAddToCart={onAddToCart}/>;
     case 'cart':
-      return <CartPage items={cart} />;
+      return <CartPage items={cart} onAddOne={onAddToCart} onRemoveOne={onRemoveItem}/>;
   }
 };
 
