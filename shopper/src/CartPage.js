@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import Item from './Item';
 import './CartPage.css';
 
+const getTotal = (items) => {
+  return items.reduce((a,item) => a + (item.count * item.price), 0)
+}
+
 function CartPage({items, onAddOne, onRemoveOne}) {
   return (
     <ul className="CartPage-items">
@@ -17,6 +21,7 @@ function CartPage({items, onAddOne, onRemoveOne}) {
           </Item>
         </li>
       ))}
+      <span>Total: {getTotal(items)}</span>
     </ul>
   );
 }
