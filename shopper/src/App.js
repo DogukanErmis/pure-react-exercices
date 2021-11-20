@@ -18,9 +18,11 @@ const summarizeCart = (cart) => {
 const App = () => {
   const [activeTab, setActiveTab] = useState('items');
   const [cart, setCart] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   const addToCart = (item) => {
     setCart((prevCart) => [...prevCart, item]);
+    setTotalAmount(totalAmount => totalAmount + item.price)
   };
 
   const removeItem = item => {
@@ -31,12 +33,13 @@ const App = () => {
         copy.splice(index, 1);
         return copy;
       });
+      setTotalAmount(totalAmount => totalAmount - item.price)
     }
   };
 
   return (
     <div className="App">
-      <Nav activeTab={activeTab} onTabChange={setActiveTab} totalItems={cart.length}/>
+      <Nav activeTab={activeTab} onTabChange={setActiveTab} totalItems={cart.length} totalAmount={totalAmount}/>
       <main className="App-content">
         <Content
           tab={activeTab}
